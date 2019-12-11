@@ -5,7 +5,7 @@ def list_all_js_function_names(path_to_js_file):
     """
     func_names = []
     start_row_list =[]
-    end_row_list = []
+    output = []
     
     with open(path_to_js_file) as f:  
         for i, each_line in enumerate (f.readlines()):
@@ -20,13 +20,9 @@ def list_all_js_function_names(path_to_js_file):
                            .split(" ")[1])
                     start_row_list.append(i + 1)
                     
-            if i > 0: 
-                if each_line.split("\n")[0] == "" and each_line.split("\n")[1] == "":
-                    end_row_list.append(i)
-                    
-                if each_line.split("\n")[0] == "\t\t\t\t}" and each_line.split("\n")[1] == "":
-                    end_row_list.append(i)
                          
-    return [{"name": v, "start_row": start_row_list[i], "end_row": end_row_list[i+1]} for i, v in enumerate(func_names) ]
-
-print(list_all_js_function_names("notes.js"))
+    #return [{"name": v, "start_row": start_row_list[i]} for i, v in enumerate(func_names) ]
+    for index, value in enumerate(func_names):
+        output.append({"name": value, "start_row": start_row_list[index]})
+      
+    return output
